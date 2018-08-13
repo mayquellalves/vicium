@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>VICIUM</title>
+</h:head>
+
+
+<ui:composition template="/template.xhtml">
+	<ui:define name="corpo">
+		<h:form id="form">
+			<p:growl id="growl" />
+			<p:tabView
+				style="width:1000px; margin:auto; float:center font-size:15px; text-align:left;">
+				<p:tab title="Dados Pessoais">
+					<h:messages styleClass="erros" />
+					<h:panelGrid columns="6">
+
+						<h:outputText value="Nome" />
+						<p:inputText value="#{clienteBean.cliente.nome}" size="25" />
+
+						<h:outputText value="Data de Nascimento" />
+						<p:inputMask value="#{clienteBean.cliente.dataNascimento.time}" size="10" mask="99/99/9999" />
+
+						<h:outputText value="CPF" />
+						<p:inputMask value="#{clienteBean.cliente.cpf}" size="15" mask="999.999.999-99" />
+
+						<h:outputText value="RG" />
+						<p:inputMask value="#{clienteBean.cliente.rg}" size="12" mask="99.999.999-9" />
+
+						<h:outputText value="Data do Cadastro" />
+						<p:calendar pattern="dd/MM/yyyy" value="#{clienteBean.cliente.dataCadastro.time}" size="10" />
+
+						<h:outputText value="Estado Civil" />
+						<p:selectOneMenu id="estadoCivil" value="#{clienteBean.cliente.estadoCivil}">
+							<f:selectItem itemValue="" itemLabel="" />
+							<f:selectItem itemValue="CASADO" itemLabel="CASADO" />
+							<f:selectItem itemValue="SOLTEIRO" itemLabel="SOLTEIRO" />
+							<f:selectItem itemValue="AMASIADO" itemLabel="AMASIADO" />
+						</p:selectOneMenu>
+
+						<h:outputText value="Sexo" />
+						<p:selectOneMenu id="sexo" value="#{clienteBean.cliente.sexo}">
+							<f:selectItem itemValue="" itemLabel="" />
+							<f:selectItem itemValue="FEMININO" itemLabel="FEMININO" />
+							<f:selectItem itemValue="MASCULINO" itemLabel="MASCULINO" />
+						</p:selectOneMenu>
+
+					</h:panelGrid>
+				</p:tab>
+
+				<p:tab title="Endereço">
+					<h:panelGrid columns="6">
+						<h:outputText value="Endereço" />
+						<p:inputText value="#{clienteBean.cliente.endereco}" size="30" />
+
+						<h:outputText value="N°" />
+						<p:inputText value="#{clienteBean.cliente.numero}" size="5" />
+
+						<h:outputText value="Bairro" />
+						<p:inputText value="#{clienteBean.cliente.bairro}" size="20" />
+
+						<p:outputLabel value="Cidade" />
+						<p:selectOneMenu value="#{clienteBean.cidade.id}">
+							<f:selectItem itemLabel="Select One" itemValue="" />
+							<f:selectItems value="#{cidadeBean.cidades}" var="cidade" itemValue="#{cidade.id}" itemLabel="#{cidade.nome}" />
+						</p:selectOneMenu>
+
+					</h:panelGrid>
+
+				</p:tab>
+
+			</p:tabView>
+			<br />
+			<p:commandButton update="@form :tableModal" title="Cancelar" actionListener="#{clienteBean.limpaFormulario}" icon="ui-icon-close" />
+			<p:commandButton id="modalDialog" onclick="PF('dlg1').show();" type="button" icon="ui-icon-search" title="Pesquisar" />
+			<p:commandButton action="#{clienteBean.grava}" update="@form :tableModal" icon="ui-icon-disk" title="Salvar" />
+			
+		</h:form>
+
+		<h:form id="tableModal">
+			<p:dialog id="modalDialog" header="Basic Dialog" widgetVar="dlg1"
+				modal="true" height="600">
+				<p:dataTable value="#{clienteBean.clientes}" var="clientes"
+					dynamic="true" border="1" paginator="true" rows="10"
+					style="width:1000px; margin:auto; font-size:15px"
+					rowKey="#{clientes.id}"
+					selection="#{clienteBean.clienteSelecionado}"
+					selectionMode="single">
+
+					<p:column style="width:200px" filterBy="#{clientes.nome}">
+						<f:facet name="header">Nome</f:facet>
+							#{clientes.nome}
+						</p:column>
+
+					<p:column style="width:115px">
+						<f:facet name="header">CPF</f:facet>
+							#{clientes.cpf}
+						</p:column>
+
+					<p:column style="width:105px">
+						<f:facet name="header">RG</f:facet>
+							#{clientes.rg}
+						</p:column>
+				</p:dataTable>
+
+
+				<p:commandButton icon="ui-icon-arrowrefresh-1-w"
+					action="#{clienteBean.carregaForm}" onclick="confirmation.hide()" />
+
+				<p:commandButton icon="ui-icon-close" action="#{clienteBean.remove}"
+					onclick="confirmation.hide()" />
+
+
+			</p:dialog>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

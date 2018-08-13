@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+      
+<h:head><title>VICIUM</title></h:head>
+<h:body>
+	<div id="cabecalho" align="center">
+			<h:graphicImage library="imagens" name="Bigs1.jpg" id="logoCompany"/>
+	</div>
+	
+	<br/>
+	<br/>
+	<div id="menu" align="center">
+		<p:menubar style="width:1000px">
+			        <p:submenu label="File">
+			            <p:submenu label="New">
+			            	<p:menuitem value="Cidade" url="cidade.xhtml" />
+			                <p:menuitem value="Cliente" url="cliente.xhtml" />
+			                <p:menuitem value="Fornecedor" url="fornecedor.xhtml"/>
+			                <p:menuitem value="Produto" url="produto.xhtml" />
+			            </p:submenu>
+			            
+			            <p:menuitem value="Sair" url="login.xhtml" />
+			        </p:submenu>
+			
+			        <p:submenu label="Movimentação">
+			            <p:submenu label="Vendas">
+			                <p:menuitem value="Venda" url="venda.xhtml" />
+			                 <p:menuitem value="Movimentação" url="movimentacaoVenda.xhtml" />
+			            </p:submenu>
+			        </p:submenu>
+			
+			    </p:menubar>
+	 </div>
+		<br/>
+		<div align="center">
+			<ui:insert name="corpo"/>
+		</div>
+		
+		<br/>
+		<div id="rodape" align="center">
+		Copyright 2012. Todos os Direitos reservados Mayquel		
+		</div>
+</h:body>
+</html>
