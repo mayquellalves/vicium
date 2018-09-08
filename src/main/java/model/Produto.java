@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -15,10 +16,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Produto implements Serializable{
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotEmpty(message="Informe a descrição do cliente")
 	private String descricao;
 	private String tamanho;
 	private String marca;

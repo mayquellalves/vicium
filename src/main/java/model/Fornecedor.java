@@ -5,22 +5,20 @@ import java.util.Calendar;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.Pattern;
-
-import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Fornecedor implements Serializable{
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	private String nomeFantasia;
-	@NotEmpty(message="Informe o CNPJ do fornecedor")
+	
 	private String cnpj;
 	private String inscricaoEstadual;
 	private String email;

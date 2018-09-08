@@ -6,6 +6,7 @@ import java.math.RoundingMode;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
@@ -15,7 +16,7 @@ import util.OperacoesComBigDecimal;
 public class Item implements Serializable {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@ManyToOne

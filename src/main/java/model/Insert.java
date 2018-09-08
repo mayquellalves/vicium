@@ -1,10 +1,5 @@
 package model;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
 import dao.DAO;
 
 public class Insert {
