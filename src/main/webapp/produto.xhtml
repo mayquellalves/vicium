@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>VICIUM</title>
+</h:head>
+
+
+<ui:composition template="/template.xhtml">
+	<ui:define name="corpo">
+		<h:form id="form">
+			<p:growl id="growl" />
+			<p:tabView
+				style="width:1000px; margin:auto; float:center font-size:15px; text-align:left;">
+				<p:tab title="Dados do Produto">
+					<h:messages styleClass="erros" />
+					<h:panelGrid columns="4">
+
+						<h:outputText value="Produto" />
+						<p:inputText value="#{produtoBean.produto.descricao}" size="35" />
+
+						<h:outputText value="Tamanho" />
+						<p:selectOneMenu id="tamanho" value="#{produtoBean.produto.tamanho}">
+							<f:selectItem itemLabel="Escolha o Tamanho" itemValue="" />
+							<f:selectItem itemValue="P" itemLabel="P" />
+							<f:selectItem itemValue="M" itemLabel="M" />
+							<f:selectItem itemValue="G" itemLabel="G" />
+						</p:selectOneMenu>
+
+						<h:outputText value="Marca" />
+						<p:inputText value="#{produtoBean.produto.marca}" size="35" />
+
+						<h:outputText value="Quantidade" />
+						<p:inputText value="#{produtoBean.produto.quantidade}" size="10" />
+
+						<h:outputText value="Modelo" />
+						<p:inputText value="#{produtoBean.produto.modelo}" size="35" />
+
+						<h:outputText value="Valor" />
+						<p:inputText value="#{produtoBean.produto.valor}" size="10" />
+
+					</h:panelGrid>
+				</p:tab>
+
+			</p:tabView>
+			<br />
+			<p:commandButton update="@form :tableModal" title="Cancelar" actionListener="#{produtoBean.limpaFormulario}" icon="ui-icon-close" />
+			<p:commandButton id="modalDialog" onclick="PF('dlg1').show();" type="button" icon="ui-icon-search" title="Pesquisar" />
+			<p:commandButton action="#{produtoBean.grava}" update="@form :tableModal" icon="ui-icon-disk" title="Salvar" />
+
+		</h:form>
+
+		<h:form id="tableModal">
+			<p:dialog id="modalDialog" header="Basic Dialog" widgetVar="dlg1" modal="true" height="600">
+				<p:dataTable value="#{produtoBean.produtos}" var="p" dynamic="true" border="1" paginator="true" rows="10"
+					style="width:1000px; margin:auto; font-size:15px" rowKey="#{produto.id}" selection="#{produtoBean.produtoSelecionado}" selectionMode="single">
+
+					<p:column style="width:200px" filterBy="#{p.descricao}">	
+						<f:facet name="header">Descrição</f:facet>
+							#{p.descricao}
+						</p:column>
+
+					<p:column style="width:115px">
+						<f:facet name="header">Marca</f:facet>
+							#{p.marca}
+						</p:column>
+
+				</p:dataTable>
+
+				<p:commandButton icon="ui-icon-arrowrefresh-1-w" action="#{produtoBean.carregaForm}" onclick="confirmation.hide()" />
+
+				<p:commandButton icon="ui-icon-close" action="#{produtoBean.remove}" onclick="confirmation.hide()" />
+			</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

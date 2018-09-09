@@ -103,7 +103,4 @@ public class ClienteBean extends AbstractBean implements Serializable {
 		return true;
 	}
 	
-	
-	
-	
 }
